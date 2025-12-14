@@ -1,8 +1,9 @@
-import { resendClient, sender } from "../lib/resend.js";
+import { getResendClient, sender } from "../lib/resend.js";
 import { createWelcomeEmailTemplate } from "../emails/emailTemplates.js";
 
 export const sendWelcomeEmail = async (email, name, clientURL) => {
-  const { data, error } = await resendClient.emails.send({
+  const client = await getResendClient();
+  const { data, error } = await client.emails.send({
     from: `${sender.name} <${sender.email}>`,
     to: email,
     subject: "Welcome to Chatify!",
